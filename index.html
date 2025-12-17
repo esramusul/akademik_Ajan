@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="tr" class="dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>Academic OS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,9 +37,10 @@
       body, html {
         margin: 0;
         padding: 0;
-        height: 100%;
+        height: 100dvh; /* Dynamic Viewport Height */
         background-color: #0F172A;
         -webkit-tap-highlight-color: transparent;
+        overflow: hidden;
       }
       
       #root {
@@ -46,7 +48,7 @@
       }
 
       .scroll-container {
-        height: 100vh;
+        height: 100dvh;
         overflow-y: auto;
         overflow-x: hidden;
         scroll-behavior: smooth;
@@ -57,7 +59,7 @@
         background-color: #0F172A; 
         background-image: radial-gradient(circle at 2px 2px, #1e293b 1px, transparent 0);
         background-size: 40px 40px;
-        min-height: 100vh;
+        min-height: 100dvh;
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -90,13 +92,12 @@
       @media (max-width: 850px) {
         .editor-workspace {
             padding-top: 70px;
-            /* Sidebar kapalıyken toolbar'a yer aç, açıldığında padding azalsın gibi görünecek */
             padding-left: 52px; 
             padding-right: 12px;
         }
         .a4-page {
             width: 100%;
-            min-height: 100vh;
+            min-height: 100dvh;
             padding: 15mm 10mm;
             border-radius: 8px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
@@ -107,7 +108,6 @@
         }
       }
 
-      /* MANUEL SAYFA KIRIMI */
       .manual-page-break {
         display: block;
         height: 60px;
@@ -147,7 +147,6 @@
       .editor-content h3 { font-size: 13pt; font-weight: 700; margin-top: 18pt; margin-bottom: 8pt; color: #334155; }
       .editor-content p { margin-bottom: 12pt; text-align: justify; }
 
-      /* Özel Scrollbar */
       .custom-scrollbar::-webkit-scrollbar { width: 5px; }
       .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
       .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
@@ -162,6 +161,11 @@
 
       .no-scrollbar::-webkit-scrollbar { display: none; }
       .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+      /* Apple Safe Area CSS Fix */
+      .safe-pb {
+        padding-bottom: env(safe-area-inset-bottom);
+      }
     </style>
     <script type="importmap">
     {

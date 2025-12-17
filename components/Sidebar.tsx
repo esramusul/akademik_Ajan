@@ -23,7 +23,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, documentConte
 
   return (
     <>
-        {/* Transparent Overlay to close sidebar on click, without blur or darkening */}
+        {/* Transparent Overlay to close sidebar on click */}
         <div 
             className={`fixed inset-0 z-40 transition-opacity duration-300
             ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
@@ -39,6 +39,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, documentConte
                 h-[100dvh]
             `}
         >
+        {/* Header Section */}
         <div className="h-14 md:h-16 flex items-center justify-between px-4 md:px-6 shrink-0 border-b border-white/10 bg-[#0B0F17]">
             <div className="flex items-center gap-3">
                 <span className="w-1.5 h-1.5 md:w-2 md:h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_10px_#22c55e]"></span>
@@ -58,8 +59,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, documentConte
             </div>
         </div>
 
-        <div className="px-4 md:px-6 py-3 md:py-4 bg-[#0B0F17] shrink-0">
-            <div className="flex gap-1 border-b border-white/10 pb-1">
+        {/* Tab Switcher */}
+        <div className="px-4 md:px-6 py-2 md:py-3 bg-[#0B0F17] shrink-0 border-b border-white/5">
+            <div className="flex gap-1">
                 {(['chat', 'agents', 'source'] as Tab[]).map((tab) => (
                 <button
                     key={tab}
@@ -77,6 +79,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, documentConte
             </div>
         </div>
 
+        {/* Content Viewport */}
         <div className="flex-1 overflow-hidden relative bg-[#111827]">
             <div className={`h-full ${activeTab === 'chat' ? 'block' : 'hidden'}`}>
                 <ChatPanel key={chatResetKey} documentContent={documentContent} onInsertContent={onInsertContent} onSmartUpdate={onSmartUpdate} />

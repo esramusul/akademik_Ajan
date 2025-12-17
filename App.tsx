@@ -180,7 +180,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden bg-[#0B0F17]">
+    <div className="flex flex-col h-[100dvh] overflow-hidden bg-[#0B0F17]">
       <Navbar 
         onGoHome={handleGoHome}
         title={docTitle}
