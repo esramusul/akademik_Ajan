@@ -13,7 +13,7 @@ const PROTOCOL_TEMPLATES: Record<string, { title: string; content: string }> = {
     literature: { 
         title: 'Literatür Taraması: Derin Öğrenme ve Radyoloji', 
         content: `<h1>RADYOLOJİDE DERİN ÖĞRENME: LİTERATÜR ANALİZİ</h1>
-        <h3>1. GİRİŞ</h3><p>Son on yılda, konvolüsyonel sinir ağları (CNN), tıbbi görüntü işlemede devrim yaratmıştır. Özellikle Smith ve ark. (2021) tarafından yapılan çalışmalar, göğüs röntgenlerinde anomali tespitinde %98 doğruluk oranına ulaşılabileceğini göstermiştir.</p>
+        <h3>1. GİRİŞ</h3><p>Son on yılda, konvolüsyonel sinir ağları (CNN), tıbbi görüntü işlemede devrim yaratmıştır. Özellikle Smith ve ark. (2021) tarafından yapılan çalışmalar, göğüs röntgenlerinde anomali tespitinde %98 doğruk oranına ulaşılabileceğini göstermiştir.</p>
         <h3>2. MEVCUT ÇALIŞMALAR</h3><p>Jones (2022), veri setlerinin çeşitliliğinin model başarısındaki en kritik faktör olduğunu savunmaktadır. Buna karşılık, Karpat (2023) algoritmik verimliliğin donanım kısıtlı ortamlarda daha öncelikli olduğunu belirtmiştir.</p>
         <p><i>NOT: Bu taslağı genişletmek için AI Sohbeti'ne "Bu çalışmalardaki metodolojik farkları özetle" diyebilirsiniz.</i></p>` 
     },
@@ -188,17 +188,20 @@ const App: React.FC = () => {
         wordCount={wordCount}
         pageCount={pageCount}
         isSaving={isSaving}
-        themeColor={themeColor} 
+        themeColor={themeColor}
+        isSidebarOpen={isSidebarOpen}
       />
       
       <div className="flex flex-1 overflow-hidden relative z-10">
-        <Editor 
-            key={currentDocId} 
-            ref={editorRef}
-            content={documentContent} 
-            setContent={setDocumentContent}
-            onPageCountChange={handlePageCountChange}
-        />
+        <div className={`flex-1 transition-all duration-300 ease-in-out transform ${isSidebarOpen ? 'md:-translate-x-[210px] -translate-x-[50%]' : 'translate-x-0'}`}>
+            <Editor 
+                key={currentDocId} 
+                ref={editorRef}
+                content={documentContent} 
+                setContent={setDocumentContent}
+                onPageCountChange={handlePageCountChange}
+            />
+        </div>
         
         <Sidebar 
             isOpen={isSidebarOpen} 

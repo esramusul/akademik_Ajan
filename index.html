@@ -2,7 +2,7 @@
 <html lang="tr" class="dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Academic OS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,6 +24,9 @@
               primary: '#3b82f6',
               accent: '#06b6d4',
             },
+            animation: {
+              'spin-slow': 'spin 3s linear infinite',
+            }
           },
         },
       }
@@ -35,7 +38,7 @@
         padding: 0;
         height: 100%;
         background-color: #0F172A;
-        /* Kaydırma sorunu için: dashboard'da doğal kaydırmaya izin veriyoruz */
+        -webkit-tap-highlight-color: transparent;
       }
       
       #root {
@@ -59,8 +62,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding-top: 120px;
-        padding-bottom: 300px;
+        padding-top: 80px;
+        padding-bottom: 200px;
       }
 
       /* A4 SAYFA YAPISI */
@@ -76,18 +79,40 @@
         color: #1a1a1a;
         box-shadow: 0 0 80px rgba(0,0,0,0.6);
         
-        padding: 30mm 25mm;
+        padding: 25mm 20mm;
         position: relative;
         outline: none;
         box-sizing: border-box;
+        transition: all 0.3s ease;
       }
 
-      /* MANUEL SAYFA KIRIMI (PROFESYONEL AYRIÇ) */
+      /* MOBİLDE A4 GÖRÜNÜMÜNÜ ESNET */
+      @media (max-width: 850px) {
+        .editor-workspace {
+            padding-top: 70px;
+            /* Sidebar kapalıyken toolbar'a yer aç, açıldığında padding azalsın gibi görünecek */
+            padding-left: 52px; 
+            padding-right: 12px;
+        }
+        .a4-page {
+            width: 100%;
+            min-height: 100vh;
+            padding: 15mm 10mm;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .manual-page-break {
+            height: 40px !important;
+            margin: 20px -10mm !important;
+        }
+      }
+
+      /* MANUEL SAYFA KIRIMI */
       .manual-page-break {
         display: block;
-        height: 80px; /* Daha belirgin boşluk */
-        margin: 40px -25mm;
-        background-color: #0F172A; /* Arka plan rengiyle aynı yapıyoruz ki sayfa bitmiş gibi gözüksün */
+        height: 60px;
+        margin: 30px -20mm;
+        background-color: #0F172A;
         border-top: 2px dashed #1e293b;
         border-bottom: 2px dashed #1e293b;
         position: relative;
@@ -105,9 +130,9 @@
         left: 50%;
         transform: translate(-50%, -50%);
         font-family: 'JetBrains Mono', monospace;
-        font-size: 10px;
+        font-size: 9px;
         color: #475569;
-        letter-spacing: 6px;
+        letter-spacing: 4px;
         font-weight: bold;
       }
 
@@ -117,10 +142,15 @@
         line-height: 1.6;
       }
 
-      .editor-content h1 { font-size: 24pt; font-weight: 800; margin-bottom: 24pt; color: #000; text-align: center; }
-      .editor-content h2 { font-size: 18pt; font-weight: 700; margin-top: 32pt; margin-bottom: 12pt; color: #000; border-bottom: 1px solid #eee; padding-bottom: 8px; }
-      .editor-content h3 { font-size: 14pt; font-weight: 700; margin-top: 24pt; margin-bottom: 10pt; color: #334155; }
-      .editor-content p { margin-bottom: 14pt; text-align: justify; }
+      .editor-content h1 { font-size: 20pt; font-weight: 800; margin-bottom: 18pt; color: #000; text-align: center; }
+      .editor-content h2 { font-size: 16pt; font-weight: 700; margin-top: 24pt; margin-bottom: 10pt; color: #000; border-bottom: 1px solid #eee; padding-bottom: 6px; }
+      .editor-content h3 { font-size: 13pt; font-weight: 700; margin-top: 18pt; margin-bottom: 8pt; color: #334155; }
+      .editor-content p { margin-bottom: 12pt; text-align: justify; }
+
+      /* Özel Scrollbar */
+      .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+      .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+      .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
 
       @media print {
         body { background: white; }
@@ -129,6 +159,9 @@
         .manual-page-break { height: 0; margin: 0; border: none; background: transparent; }
         .manual-page-break::after { display: none; }
       }
+
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
     <script type="importmap">
     {

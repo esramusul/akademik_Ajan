@@ -23,24 +23,25 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, documentConte
 
   return (
     <>
+        {/* Transparent Overlay to close sidebar on click, without blur or darkening */}
         <div 
-            className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-30 transition-opacity duration-300 md:hidden
+            className={`fixed inset-0 z-40 transition-opacity duration-300
             ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
             onClick={onClose}
         ></div>
 
         <aside 
             className={`
-                fixed top-0 bottom-0 right-0 w-[420px] max-w-[90vw]
-                bg-[#0B0F17]/95 backdrop-blur-xl border-l border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)]
-                flex flex-col z-40 transform transition-transform duration-300 ease-in-out
+                fixed top-0 bottom-0 right-0 w-[420px] max-w-full
+                bg-[#0B0F17]/98 md:bg-[#0B0F17]/95 backdrop-blur-xl border-l border-white/10 shadow-[-20px_0_50px_rgba(0,0,0,0.5)]
+                flex flex-col z-50 transform transition-transform duration-300 ease-in-out
                 ${isOpen ? 'translate-x-0' : 'translate-x-full'}
             `}
         >
-        <div className="h-16 flex items-center justify-between px-6 shrink-0 border-b border-white/10 bg-[#0B0F17]">
+        <div className="h-14 md:h-16 flex items-center justify-between px-4 md:px-6 shrink-0 border-b border-white/10 bg-[#0B0F17]">
             <div className="flex items-center gap-3">
-                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_10px_#22c55e]"></span>
-                <h2 className="text-sm font-mono font-bold text-white tracking-widest uppercase">AI_TERMINAL</h2>
+                <span className="w-1.5 h-1.5 md:w-2 md:h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_10px_#22c55e]"></span>
+                <h2 className="text-[10px] md:text-sm font-mono font-bold text-white tracking-widest uppercase">AI_TERMINAL</h2>
             </div>
             <div className="flex items-center gap-2">
                 <button 
@@ -56,27 +57,26 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, documentConte
             </div>
         </div>
 
-        <div className="px-6 py-4 bg-[#0B0F17]">
+        <div className="px-4 md:px-6 py-3 md:py-4 bg-[#0B0F17]">
             <div className="flex gap-1 border-b border-white/10 pb-1">
                 {(['chat', 'agents', 'source'] as Tab[]).map((tab) => (
                 <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`flex-1 py-2 text-[10px] font-mono font-bold uppercase tracking-wider transition-all border-b-2
+                    className={`flex-1 py-1.5 md:py-2 text-[8px] md:text-[10px] font-mono font-bold uppercase tracking-wider transition-all border-b-2
                     ${activeTab === tab 
                         ? 'border-cyan-500 text-cyan-400 bg-cyan-950/10' 
                         : 'border-transparent text-slate-500 hover:text-slate-300'}`}
                 >
-                    {tab === 'chat' && '// SOHBET'}
-                    {tab === 'agents' && '// ANALİZ'}
-                    {tab === 'source' && '// VERİ'}
+                    {tab === 'chat' && 'SOHBET'}
+                    {tab === 'agents' && 'ANALİZ'}
+                    {tab === 'source' && 'VERİ'}
                 </button>
                 ))}
             </div>
         </div>
 
         <div className="flex-1 overflow-hidden relative bg-[#111827]">
-            {/* Sekmelerin içeriğini saklamak için display:none kullanıyoruz */}
             <div className={`h-full ${activeTab === 'chat' ? 'block' : 'hidden'}`}>
                 <ChatPanel key={chatResetKey} documentContent={documentContent} onInsertContent={onInsertContent} onSmartUpdate={onSmartUpdate} />
             </div>
