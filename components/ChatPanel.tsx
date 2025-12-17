@@ -156,19 +156,23 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ documentContent, onInsertC
                     </div>
                  </div>
             )}
-            <div ref={messagesEndRef} className="h-4" />
+            {/* 
+                SCROLL SPACER: 
+                Yazma alanı çok yukarı çekildiği için son mesajların görünmesi için buradaki boşluğu da artırdık.
+            */}
+            <div ref={messagesEndRef} className="h-32 md:h-8" />
         </div>
 
-        {/* Input Area - Adjusted for Apple Home Bar and Safari UI */}
-        <div className="border-t border-gray-100 bg-white shrink-0 z-30 shadow-[0_-15px_40px_rgba(0,0,0,0.08)] safe-pb">
-            <div className="p-3 md:p-4">
+        {/* Input Area - Apple Safari & Home Bar Extreme Fix */}
+        <div className="border-t border-gray-100 bg-white shrink-0 z-30 shadow-[0_-20px_50px_rgba(0,0,0,0.12)]">
+            <div className="p-3 md:p-4 pb-4 md:pb-4">
                 <div className="relative shadow-sm rounded-xl md:rounded-2xl max-w-full overflow-hidden">
                     <textarea
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         onKeyDown={handleKeyDown}
                         placeholder="Mesaj yazın..."
-                        className="w-full bg-gray-50 hover:bg-white border border-gray-200 rounded-xl md:rounded-2xl px-3 md:px-4 py-3.5 text-xs md:text-sm focus:outline-none focus:border-black pr-20 md:pr-24 resize-none h-[52px] md:h-[64px] transition-all placeholder:text-gray-400 text-slate-900 leading-tight"
+                        className="w-full bg-gray-50 hover:bg-white border border-gray-200 rounded-xl md:rounded-2xl px-3 md:px-4 py-4 text-xs md:text-sm focus:outline-none focus:border-black pr-20 md:pr-24 resize-none h-[56px] md:h-[64px] transition-all placeholder:text-gray-400 text-slate-900 leading-tight"
                     />
                     
                     <div className="absolute top-1/2 -translate-y-1/2 right-1.5 md:right-2 flex items-center gap-1">
@@ -176,7 +180,6 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ documentContent, onInsertC
                             onClick={() => handleSend(true)}
                             disabled={isLoading || !input.trim()}
                             className="w-8 h-8 md:w-9 md:h-9 rounded-lg text-gray-400 hover:text-blue-600 transition-colors flex items-center justify-center disabled:opacity-30"
-                            title="Akıllı Uygula"
                         >
                             <span className="material-symbols-rounded text-[20px] md:text-[22px]">magic_button</span>
                         </button>
@@ -184,15 +187,20 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ documentContent, onInsertC
                             onClick={() => handleSend(false)}
                             disabled={isLoading || !input.trim()}
                             className="w-8 h-8 md:w-9 md:h-9 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors flex items-center justify-center disabled:opacity-50 shadow-md"
-                            title="Gönder"
                         >
                             <span className="material-symbols-rounded text-[20px] md:text-[22px]">arrow_upward</span>
                         </button>
                     </div>
                 </div>
             </div>
-            {/* Additional micro-spacer for extreme cases of Safari floating bars */}
-            <div className="h-2 md:hidden"></div>
+            
+            {/* 
+                APPLE ULTIMATE FIX: 
+                Boşluğu 3.5rem'den 5.5rem'e (yaklaşık 88px) çıkardık. 
+                Bu, Apple Safari alt navigasyon barı ne kadar büyük olursa olsun 
+                yazma alanını güvenli bölgeye (yukarı) iter.
+            */}
+            <div className="h-[calc(env(safe-area-inset-bottom)+5.5rem)] md:hidden bg-white"></div>
         </div>
     </div>
   );
