@@ -32,10 +32,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, documentConte
 
         <aside 
             className={`
-                fixed top-0 bottom-0 right-0 w-[420px] max-w-full
+                fixed inset-y-0 right-0 w-[420px] max-w-full
                 bg-[#0B0F17]/98 md:bg-[#0B0F17]/95 backdrop-blur-xl border-l border-white/10 shadow-[-20px_0_50px_rgba(0,0,0,0.5)]
                 flex flex-col z-50 transform transition-transform duration-300 ease-in-out
                 ${isOpen ? 'translate-x-0' : 'translate-x-full'}
+                h-[100dvh]
             `}
         >
         <div className="h-14 md:h-16 flex items-center justify-between px-4 md:px-6 shrink-0 border-b border-white/10 bg-[#0B0F17]">
@@ -57,7 +58,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, documentConte
             </div>
         </div>
 
-        <div className="px-4 md:px-6 py-3 md:py-4 bg-[#0B0F17]">
+        <div className="px-4 md:px-6 py-3 md:py-4 bg-[#0B0F17] shrink-0">
             <div className="flex gap-1 border-b border-white/10 pb-1">
                 {(['chat', 'agents', 'source'] as Tab[]).map((tab) => (
                 <button

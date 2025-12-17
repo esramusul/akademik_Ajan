@@ -165,22 +165,23 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ documentContent, onInsertC
             <div ref={messagesEndRef} className="h-2" />
         </div>
 
-        {/* Input Area */}
-        <div className="p-3 md:p-4 border-t border-gray-100 bg-white shrink-0 z-20">
+        {/* Input Area - Adjusted for Mobile Visibility */}
+        <div className="p-3 md:p-4 pb-8 md:pb-4 border-t border-gray-100 bg-white shrink-0 z-20 shadow-[0_-5px_15px_rgba(0,0,0,0.03)]">
             <div className="relative shadow-sm rounded-xl md:rounded-2xl">
                 <textarea
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={handleKeyDown}
                     placeholder="Mesaj yazın..."
-                    className="w-full bg-gray-50 hover:bg-white border border-gray-200 rounded-xl md:rounded-2xl px-3 md:px-4 py-2.5 md:py-3 text-xs md:text-sm focus:outline-none focus:border-black pr-20 md:pr-24 resize-none h-[44px] md:h-[60px] transition-all placeholder:text-gray-400 text-slate-900"
+                    className="w-full bg-gray-50 hover:bg-white border border-gray-200 rounded-xl md:rounded-2xl px-3 md:px-4 py-2.5 md:py-3 text-xs md:text-sm focus:outline-none focus:border-black pr-20 md:pr-24 resize-none h-[48px] md:h-[60px] transition-all placeholder:text-gray-400 text-slate-900"
                 />
                 
-                <div className="absolute bottom-1.5 md:bottom-2 right-1.5 md:right-2 flex items-center gap-0.5 md:gap-1">
+                <div className="absolute top-1/2 -translate-y-1/2 right-1.5 md:right-2 flex items-center gap-0.5 md:gap-1">
                     <button 
                         onClick={() => handleSend(true)}
                         disabled={isLoading || !input.trim()}
                         className="w-7 h-7 md:w-8 md:h-8 rounded-lg text-gray-400 hover:text-blue-600 transition-colors flex items-center justify-center disabled:opacity-30"
+                        title="Akıllı Uygula"
                     >
                         <span className="material-symbols-rounded text-[18px] md:text-[20px]">magic_button</span>
                     </button>
@@ -188,6 +189,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ documentContent, onInsertC
                         onClick={() => handleSend(false)}
                         disabled={isLoading || !input.trim()}
                         className="w-7 h-7 md:w-8 md:h-8 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors flex items-center justify-center disabled:opacity-50 shadow-md"
+                        title="Gönder"
                     >
                         <span className="material-symbols-rounded text-[18px] md:text-[20px]">arrow_upward</span>
                     </button>
